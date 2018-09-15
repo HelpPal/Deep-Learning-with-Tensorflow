@@ -5,8 +5,8 @@ The objective of this assignment is to learn about simple data curation practice
 
 This notebook uses the notMNIST dataset to be used with python experiments. This dataset is designed to look like the classic MNIST dataset, while looking a little more like real data: it's a harder task, and the data is a lot less 'clean' than MNIST.
 
-# These are all the modules we'll be using later. Make sure you can import them
-# before proceeding further.
+// These are all the modules we'll be using later. Make sure you can import them
+// before proceeding further.
 from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,7 +19,7 @@ from sklearn.linear_model import LogisticRegression
 from six.moves.urllib.request import urlretrieve
 from six.moves import cPickle as pickle
 
-# Config the matlotlib backend as plotting inline in IPython
+// Config the matlotlib backend as plotting inline in IPython
 %matplotlib inline
 First, we'll download the dataset to our local machine. The data consists of characters rendered in a variety of fonts on a 28x28 image. The labels are limited to 'A' through 'J' (10 classes). The training set has about 500k and the testset 19000 labelled examples. Given these sizes, it should be possible to train models quickly on any machine.
 
@@ -69,7 +69,7 @@ np.random.seed(133)
 def maybe_extract(filename, force=False):
   root = os.path.splitext(os.path.splitext(filename)[0])[0]  # remove .tar.gz
   if os.path.isdir(root) and not force:
-    # You may override by setting force=True.
+    // You may override by setting force=True.
     print('%s already present - Skipping extraction of %s.' % (root, filename))
   else:
     print('Extracting data for %s. This may take a while. Please wait.' % root)
@@ -96,10 +96,10 @@ notMNIST_small already present - Skipping extraction of notMNIST_small.tar.gz.
 Problem 1
 Let's take a peek at some of the data to make sure it looks sensible. Each exemplar should be an image of a character A through J rendered in a different font. Display a sample of the images that we just downloaded. Hint: you can use the package IPython.display.
 
-# We can display images using Image(filename="")
+// We can display images using Image(filename="")
 Image(filename="notMNIST_small/A/Q0NXaWxkV29yZHMtQm9sZEl0YWxpYy50dGY=.png")
 
-# We get all file names
+// We get all file names
 fn = os.listdir("notMNIST_small/A/")
 fn
 ['MDEtMDEtMDAudHRm.png',
@@ -1103,7 +1103,7 @@ fn
  'R290aGljNzIwIEx0IEJUIExpZ2h0LnR0Zg==.png',
  'R290aGljODIxIENuIEJULnR0Zg==.png',
  ...]
-# Display first 20 images 
+// Display first 20 images 
 for file in fn[:20]:
     path = 'notMNIST_small/A/' + file
     display(Image(path))
@@ -1133,8 +1133,8 @@ We'll convert the entire dataset into a 3D array (image index, x, y) of floating
 
 A few images might not be readable, we'll just skip them.
 
-image_size = 28  # Pixel width and height.
-pixel_depth = 255.0  # Number of levels per pixel.
+image_size = 28  // Pixel width and height.
+pixel_depth = 255.0  // Number of levels per pixel.
 
 def load_letter(folder, min_num_images):
   """Load the data for a single letter label."""
@@ -1171,7 +1171,7 @@ def maybe_pickle(data_folders, min_num_images_per_class, force=False):
     set_filename = folder + '.pickle'
     dataset_names.append(set_filename)
     if os.path.exists(set_filename) and not force:
-      # You may override by setting force=True.
+      // You may override by setting force=True.
       print('%s already present - Skipping pickling.' % set_filename)
     else:
       print('Pickling %s.' % set_filename)
@@ -1216,27 +1216,27 @@ Saving a program's state data to disk so that it can carry on where it left off 
 Sending python data over a TCP connection in a multi-core or distributed system (marshalling).
 Storing python objects in a database.
 Converting an arbitrary python object to a string so that it can be used as a dictionary key (e.g. for caching & memorization).
-# import pickle
+// import pickle
 
-# Create a list
+// Create a list
 test_values = ['test value','test value 2','test value 3']
 display(test_values)
 
 file_Name = "testfile"
-# Open the file for writing
+// Open the file for writing
 fileObject = open(file_Name,'wb') 
 
-# This writes the object a to the
-# file named 'testfile'
+// This writes the object a to the
+// file named 'testfile'
 pickle.dump(test_values, fileObject)   
 
-# Then we close the fileObject
+// Then we close the fileObject
 fileObject.close()
 
-# We then open the file for reading
+// We then open the file for reading
 fileObject = open(file_Name,'r')  
 
-# And the object from the file into var b
+// And the object from the file into var b
 test_values_loaded = pickle.load(fileObject) 
 display(test_values_loaded)
 display(test_values == test_values_loaded)
@@ -1246,23 +1246,23 @@ True
 Problem 2
 Let's verify that the data still looks good. Displaying a sample of the labels and images from the ndarray. Hint: you can use matplotlib.pyplot.
 
-# index 0 should be all As, 1 = all Bs, etc.
+// index 0 should be all As, 1 = all Bs, etc.
 pickle_file = train_datasets[0]  
 
-# With would automatically close the file after the nested block of code
+// With would automatically close the file after the nested block of code
 with open(pickle_file, 'rb') as f:
     
-    # unpickle
+    // unpickle
     letter_set = pickle.load(f)  
     
-    # pick a random image index
+    // pick a random image index
     sample_idx = np.random.randint(len(letter_set))
     
-    # extract a 2D slice
+    // extract a 2D slice
     sample_image = letter_set[sample_idx, :, :]  
     plt.figure()
     
-    # display it
+    // display it
     plt.imshow(sample_image)  
 
 Problem 3
@@ -1294,7 +1294,7 @@ def merge_datasets(pickle_files, train_size, valid_size=0):
     try:
       with open(pickle_file, 'rb') as f:
         letter_set = pickle.load(f)
-        # let's shuffle the letters to have random validation and training set
+        // let's shuffle the letters to have random validation and training set
         np.random.shuffle(letter_set)
         if valid_dataset is not None:
           valid_letter = letter_set[:vsize_per_class, :, :]
@@ -1361,7 +1361,7 @@ try:
 except Exception as e:
   print('Unable to save data to', pickle_file, ':', e)
   raise
-# Getting statistics of a file using os.stat(file_name)
+// Getting statistics of a file using os.stat(file_name)
 statinfo = os.stat(pickle_file)
 print('Compressed pickle size:', statinfo.st_size)
 Compressed pickle size: 690800441
@@ -1401,35 +1401,35 @@ Train a simple model on this data using 50, 100, 1000 and 5000 training samples.
 
 Optional question: train an off-the-shelf model on all the data!
 
-# Here you have 200000 samples
-# 28 x 28 features
-# We have to reshape them because scikit-learn expects (n_samples, n_features)
+// Here you have 200000 samples
+// 28 x 28 features
+// We have to reshape them because scikit-learn expects (n_samples, n_features)
 train_dataset.shape
 (200000, 28, 28)
 test_dataset.shape
 (10000, 28, 28)
-# Prepare training data
+// Prepare training data
 samples, width, height = train_dataset.shape
 X_train = np.reshape(train_dataset,(samples,width*height))
 y_train = train_labels
 
-# Prepare testing data
+// Prepare testing data
 samples, width, height = test_dataset.shape
 X_test = np.reshape(test_dataset,(samples,width*height))
 y_test = test_labels
-# Import
+// Import
 from sklearn.linear_model import LogisticRegression
 
-# Instantiate
+// Instantiate
 lg = LogisticRegression(multi_class='multinomial', solver='lbfgs', random_state=42, verbose=1, max_iter=1000, n_jobs=-1)
 
-# Fit
+// Fit
 lg.fit(X_train, y_train)
 
-# Predict
+// Predict
 y_pred = lg.predict(X_test)
 
-# Score
+// Score
 from sklearn import metrics
 metrics.accuracy_score(y_test, y_pred)
 [Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:  5.9min finished
